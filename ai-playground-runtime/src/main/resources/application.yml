@@ -1,0 +1,7 @@
+server:
+  port: 9191
+spring:
+  application:
+    name: ai-playground
+  jmx:
+    enabled: false
