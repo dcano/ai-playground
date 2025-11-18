@@ -1,0 +1,8 @@
+spring:
+  ai:
+    model:
+      chat: ollama
+    ollama:
+      chat:
+        options:
+          model: gemma3
