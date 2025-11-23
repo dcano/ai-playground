@@ -3,5 +3,7 @@ server:
 spring:
   application:
     name: ai-playground
-  jmx:
-    enabled: false
+  ai:
+    chat:
+      client:
+        enabled: false
