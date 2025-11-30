@@ -18,6 +18,7 @@
         <module>ai-playground-ollama</module>
         <module>ai-playground-runtime</module>
         <module>ai-playground-web</module>
+        <module>ai-playground-prompt-templates</module>
     </modules>
     <properties>
         <java.version>21</java.version>
@@ -39,6 +40,11 @@
             <dependency>
                 <groupId>io.twba</groupId>
                 <artifactId>ai-playground-autoconfiguration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.twba</groupId>
+                <artifactId>ai-playground-prompt-templates</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
