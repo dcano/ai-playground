@@ -7,3 +7,6 @@ spring:
     chat:
       client:
         enabled: false
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG

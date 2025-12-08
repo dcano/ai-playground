@@ -19,6 +19,8 @@
         <module>ai-playground-runtime</module>
         <module>ai-playground-web</module>
         <module>ai-playground-prompt-templates</module>
+        <module>ai-playground-advisors</module>
+        <module>ai-playground-model</module>
     </modules>
     <properties>
         <java.version>21</java.version>
@@ -45,6 +47,16 @@
             <dependency>
                 <groupId>io.twba</groupId>
                 <artifactId>ai-playground-prompt-templates</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.twba</groupId>
+                <artifactId>ai-playground-advisors</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.twba</groupId>
+                <artifactId>ai-playground-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
