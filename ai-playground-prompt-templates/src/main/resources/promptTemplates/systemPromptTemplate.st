@@ -7,7 +7,7 @@ HR Policy Summary:
 - Notice period - 30 days
 - Maternity leaves - 6 months
 - Paternity leaves - 2 weeks
-- National holidays are company-widge off days
+- National holidays are company-wide off days
 - Benefits include health insurance,  provident fund and annual health checkup
 - Employees must adhere to professional behaviour, punctuality and data confidentiality
 

@@ -20,6 +20,10 @@
     <dependencies>
         <dependency>
             <groupId>io.twba</groupId>
+            <artifactId>ai-playground-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.twba</groupId>
             <artifactId>ai-playground-advisors</artifactId>
         </dependency>
         <dependency>
