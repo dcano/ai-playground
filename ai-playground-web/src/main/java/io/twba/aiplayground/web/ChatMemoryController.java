@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.function.Consumer;
-
 import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 
 @RestController
