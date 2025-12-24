@@ -1,0 +1,8 @@
+spring:
+  ai:
+    vectorstore:
+      qdrant:
+        initialize-schema: true
+        host: localhost
+        port: 6334
+        collection-name: ai-playground

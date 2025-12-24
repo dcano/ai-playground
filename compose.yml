@@ -18,6 +18,15 @@ services:
       - 16543:80
     volumes:
       - ./pgadmin-servers.json:/pgadmin4/servers.json
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_local
+    ports:
+      - "6333:6333" # HTTP API & Web UI
+      - "6334:6334" # gRPC API (High performance)
+    volumes:
+      - qdrant-db-volume:/qdrant/storage
+    restart: always
 volumes:
   postgres-db-volume:
     driver: local
@@ -25,3 +34,10 @@ volumes:
       type: none
       o: bind
       device: ~/temp/data/postgres
+  qdrant-db-volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ~/temp/data/qdrant
+
