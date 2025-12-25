@@ -13,6 +13,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 @EnableConfigurationProperties
 public class OllamaAiModelConfiguration {
@@ -38,6 +40,8 @@ public class OllamaAiModelConfiguration {
         if(playgroundProperties.isHasMemory()) {
             builder.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build());
         }
+
+        builder.defaultAdvisors(List.of(new SimpleLoggerAdvisor()));
 
         return builder.build();
 
