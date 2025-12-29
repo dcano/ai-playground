@@ -8,6 +8,7 @@ import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,8 @@ public class OllamaAiModelConfiguration {
     public ChatClient plainChatClient(OllamaChatModel ollamaChatModel,
                                       ChatOptions chatOptions,
                                       PlaygroundProperties playgroundProperties,
-                                      ChatMemory chatMemory) {
+                                      ChatMemory chatMemory,
+                                      RetrievalAugmentationAdvisor retrievalAugmentationAdvisor) {
 
         ChatClient.Builder builder = ChatClient.builder(ollamaChatModel)
                 .defaultOptions(chatOptions);
@@ -41,7 +43,7 @@ public class OllamaAiModelConfiguration {
             builder.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build());
         }
 
-        builder.defaultAdvisors(List.of(new SimpleLoggerAdvisor()));
+        builder.defaultAdvisors(List.of(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor(), retrievalAugmentationAdvisor));
 
         return builder.build();
 

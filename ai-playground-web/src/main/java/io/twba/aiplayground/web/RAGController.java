@@ -27,8 +27,12 @@ public class RAGController {
     private final ChatClient chatClient;
     private final VectorStore vectorStore;
 
-    @Value("classpath://promptTemplates/systemPromptRandomDataTemplate.st")
+    @Value("classpath:/promptTemplates/systemPromptRandomDataTemplate.st")
     private Resource promptTemplate;
+
+    @Value("classpath:/promptTemplates/systemPromptHrAssistantRagTemplate.st")
+    private Resource hrSystemPromptTemplate;
+
 
     @Autowired
     public RAGController(@Qualifier("plainChatClient") ChatClient chatClient, VectorStore vectorStore) {
@@ -43,7 +47,7 @@ public class RAGController {
 
         SearchRequest searchRequest = SearchRequest.builder()
                 .query(message)
-                .topK(3)
+                .topK(10)
                 .similarityThreshold(0.5)
                 .build();
 
@@ -52,6 +56,43 @@ public class RAGController {
 
         String answer = chatClient.prompt().system(
                 promptSystemSpec -> promptSystemSpec.text(promptTemplate).param("documents", similarContext))
+                .advisors(a -> a.param(CONVERSATION_ID, chatSessionId))
+                .user(message)
+                .call().content();
+
+        return ResponseEntity.ok(answer);
+    }
+
+    @GetMapping("/document/chat")
+    public ResponseEntity<String> documentChat(
+            @RequestHeader("X-Chat-Session-Id") final String chatSessionId,
+            @RequestParam("message") String message) {
+
+        SearchRequest searchRequest = SearchRequest.builder()
+                .query(message)
+                .topK(3)
+                .similarityThreshold(0.5)
+                .build();
+
+        List<Document> similarDocs = vectorStore.similaritySearch(searchRequest);
+        String similarContext = similarDocs.stream().map(Document::getText).collect(Collectors.joining(System.lineSeparator()));
+
+        String answer = chatClient.prompt().system(
+                        promptSystemSpec -> promptSystemSpec.text(hrSystemPromptTemplate).param("documents", similarContext))
+                .advisors(a -> a.param(CONVERSATION_ID, chatSessionId))
+                .user(message)
+                .call().content();
+
+        return ResponseEntity.ok(answer);
+    }
+
+    @GetMapping("/managed/chat")
+    public ResponseEntity<String> ragManagedChat(
+            @RequestHeader("X-Chat-Session-Id") final String chatSessionId,
+            @RequestParam("message") String message) {
+
+
+        String answer = chatClient.prompt()
                 .advisors(a -> a.param(CONVERSATION_ID, chatSessionId))
                 .user(message)
                 .call().content();
