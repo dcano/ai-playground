@@ -1,3 +1,5 @@
+env:
+  tavily-key: ${TAVILY_KEY:}
 server:
   port: 9191
 spring:
@@ -34,10 +36,7 @@ spring:
     driver-class-name: org.h2.Driver
     username: test
     password: test123
-  docker:
-    compose:
-      stop:
-        command: down
+
 logging:
   level:
     org.springframework.ai.chat.client.advisor: DEBUG
