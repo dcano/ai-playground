@@ -1,5 +1,3 @@
-env:
-  tavily-key: ${TAVILY_KEY:}
 server:
   port: 9191
 spring:
@@ -43,3 +41,5 @@ logging:
 
 playground:
   has-memory: false
+  tavily-api-key: ${TAVILY_KEY:}
+  tavily-result-limit: 5

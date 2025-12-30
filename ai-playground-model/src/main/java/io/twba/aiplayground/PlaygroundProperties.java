@@ -6,5 +6,7 @@ import lombok.Data;
 public class PlaygroundProperties {
 
     private boolean hasMemory;
+    private String tavilyApiKey;
+    private int tavilyResultLimit = 5;
 
 }
