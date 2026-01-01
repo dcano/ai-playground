@@ -104,6 +104,18 @@ public class OllamaAiModelConfiguration {
                 .build();
     }
 
+    @Bean
+    public ChatClient.Builder chatClientBuilder(OllamaChatModel ollamaChatModel,
+                                                ChatMemory chatMemory,
+                                                ChatOptions chatOptions) {
+
+        return ChatClient.builder(ollamaChatModel)
+                .defaultAdvisors(new SimpleLoggerAdvisor(), MessageChatMemoryAdvisor.builder(chatMemory).build())
+                .defaultOptions(chatOptions);
+
+
+    }
+
     @ConfigurationProperties(prefix = "playground")
     @Bean
     public PlaygroundProperties playgroundProperties() {

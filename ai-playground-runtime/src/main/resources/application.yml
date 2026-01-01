@@ -11,6 +11,8 @@ spring:
         max-retries: 1
       chat:
         model: gemma3
+      embedding:
+        model: embeddinggemma:300m
     chat:
       client:
         enabled: false

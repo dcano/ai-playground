@@ -30,7 +30,7 @@ public class HRPolicyLoader {
 
     @PostConstruct
     public void loadPDF() {
-        TextSplitter textSplitter = TokenTextSplitter.builder().withChunkSize(100).withMaxNumChunks(400).build();
+        TextSplitter textSplitter = TokenTextSplitter.builder().withChunkSize(200).withMaxNumChunks(400).build();
         TikaDocumentReader tikaDocumentReader = new TikaDocumentReader(policyFile);
         List<Document> documents = tikaDocumentReader.get().stream()
                 .map(d -> new Document(d.getFormattedContent(),
