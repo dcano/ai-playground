@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>ai-playground-ollama</artifactId>
+    <artifactId>ai-playground-tools</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -19,24 +19,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.twba</groupId>
-            <artifactId>ai-playground-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.twba</groupId>
-            <artifactId>ai-playground-advisors</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.twba</groupId>
-            <artifactId>ai-playground-rag</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-model-chat-memory-repository-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-model-ollama</artifactId>
+            <artifactId>spring-ai-model</artifactId>
         </dependency>
     </dependencies>
 

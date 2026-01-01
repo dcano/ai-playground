@@ -10,7 +10,10 @@ spring:
         timeout: 60s
         max-retries: 1
       chat:
-        model: gemma3
+        model: gpt-oss:latest
+        options:
+          temperature: 0.8
+          max-tokens: 10000
       embedding:
         model: embeddinggemma:300m
     chat:
@@ -40,6 +43,7 @@ spring:
 logging:
   level:
     org.springframework.ai.chat.client.advisor: DEBUG
+    org.springframework.ai.model.tool: DEBUG
 
 playground:
   has-memory: false

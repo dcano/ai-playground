@@ -98,7 +98,7 @@ public class OllamaAiModelConfiguration {
     @Bean
     public ChatOptions chatOptions() {
         return ChatOptions.builder()
-                .model("gemma3")
+                .model("gpt-oss:latest")
                 .temperature(0.8)
                 .maxTokens(10000)
                 .build();
@@ -110,10 +110,11 @@ public class OllamaAiModelConfiguration {
                                                 ChatOptions chatOptions) {
 
         return ChatClient.builder(ollamaChatModel)
-                .defaultAdvisors(new SimpleLoggerAdvisor(), MessageChatMemoryAdvisor.builder(chatMemory).build())
+                .defaultAdvisors(new SimpleLoggerAdvisor(),
+                        new TokenUsageAuditAdvisor(),
+                        MessageChatMemoryAdvisor.builder(chatMemory)
+                                .build())
                 .defaultOptions(chatOptions);
-
-
     }
 
     @ConfigurationProperties(prefix = "playground")
