@@ -52,3 +52,5 @@ playground:
   has-memory: false
   tavily-api-key: ${TAVILY_KEY:}
   tavily-result-limit: 5
+  manual-error-handling:
+    enabled: false
