@@ -6,6 +6,7 @@ import org.springframework.ai.rag.preretrieval.query.transformation.TranslationQ
 import org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +15,7 @@ public class RagConfiguration {
 
     @Bean
     public RetrievalAugmentationAdvisor retrievalAugmentationAdvisor(@Autowired VectorStore vectorStore,
-                                                                     @Autowired ChatClient.Builder chatClientBuilder) {
+                                                                     @Autowired @Qualifier("chatClientBuilderNonMcp") ChatClient.Builder chatClientBuilder) {
         return RetrievalAugmentationAdvisor.builder()
                 // pre-retrieval
                 .queryTransformers(TranslationQueryTransformer.builder()

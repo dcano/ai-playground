@@ -107,8 +107,8 @@ public class OllamaAiModelConfiguration {
                 .build();
     }
 
-    @Bean
-    public ChatClient.Builder chatClientBuilder(OllamaChatModel ollamaChatModel,
+    @Bean("chatClientBuilderNonMcp")
+    public ChatClient.Builder chatClientBuilderNonMcp(OllamaChatModel ollamaChatModel,
                                                 ChatMemory chatMemory,
                                                 ChatOptions chatOptions) {
 
@@ -117,6 +117,16 @@ public class OllamaAiModelConfiguration {
                         new TokenUsageAuditAdvisor(),
                         MessageChatMemoryAdvisor.builder(chatMemory)
                                 .build())
+                .defaultOptions(chatOptions);
+    }
+
+    @Bean("chatClientBuilderMcp")
+    public ChatClient.Builder chatClientBuilderMcp(OllamaChatModel ollamaChatModel,
+                                                ChatOptions chatOptions) {
+
+        return ChatClient.builder(ollamaChatModel)
+                .defaultAdvisors(new SimpleLoggerAdvisor(),
+                        new TokenUsageAuditAdvisor())
                 .defaultOptions(chatOptions);
     }
 
