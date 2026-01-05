@@ -8,6 +8,13 @@
         "/home/dcano/McpFsTest",
         "/home/dcano/Downloads"
       ]
+    },
+    "helpdesk": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/home/dcano/ai-playground-mcp-server.jar"
+      ]
     }
   }
 }

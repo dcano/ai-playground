@@ -24,6 +24,8 @@
         <module>ai-playground-rag</module>
         <module>ai-playground-tools</module>
         <module>ai-playground-mcp-client</module>
+        <module>ai-playground-mcp-server</module>
+        <module>ai-playground-mcp-server-runtime</module>
     </modules>
     <properties>
         <java.version>21</java.version>
@@ -75,6 +77,11 @@
             <dependency>
                 <groupId>io.twba</groupId>
                 <artifactId>ai-playground-mcp-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.twba</groupId>
+                <artifactId>ai-playground-mcp-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

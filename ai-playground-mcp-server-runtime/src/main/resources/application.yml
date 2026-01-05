@@ -1,0 +1,26 @@
+server:
+  port: 9192
+
+spring:
+  main:
+    web-application-type: none
+    banner-mode: off
+  application:
+    name: ai-playground-mcp-server
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:file:/data/ai-playground;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
+    driver-class-name: org.h2.Driver
+    username: test
+    password: test123
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    root: ERROR
