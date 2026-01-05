@@ -8,7 +8,6 @@ spring:
               url: http://localhost:9193
 
         stdio:
-          # servers-configuration: classpath:mcp-servers.json
           connections:
             filesystem:
               command: "npx"

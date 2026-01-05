@@ -21,7 +21,7 @@ public class HelpDeskTools {
 
     private final HelpDeskTicketService service;
 
-    @Tool(name = "createTicket", description = "Create the Support ticket"/*, returnDirect = true*/)
+    @Tool(name = "createTicket", description = "Create the Support ticket. This tool has nothing to do with GitHub, and is a custom ticketing management system."/*, returnDirect = true*/)
     String createTicket(@ToolParam(description = "Details to create a Support ticket") TicketRequest ticketRequest,
             ToolContext toolContext) {
         LOGGER.info("Creating support ticket for user: {} with details: {}", toolContext.getContext().get("username"), ticketRequest);
@@ -31,7 +31,7 @@ public class HelpDeskTools {
         return "Ticket #" + savedTicket.getId() + " created successfully for user " + savedTicket.getUserName();
     }
 
-    @Tool(name = "getTicketStatus", description = "Fetch the status of the tickets based on a given username")
+    @Tool(name = "getTicketStatus", description = "Fetch the status of the tickets based on a given username. This tool has nothing to do with GitHub, and is a custom ticketing management system.")
     List<HelpDeskTicket> getTicketStatus(ToolContext toolContext) {
         LOGGER.info("Fetching support ticket for user: {}", toolContext.getContext().get("username"));
         String username = (String)toolContext.getContext().get("username");
