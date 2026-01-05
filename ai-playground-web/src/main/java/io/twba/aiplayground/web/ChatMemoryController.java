@@ -13,7 +13,7 @@ public class ChatMemoryController {
 
     private final ChatClient chatClient;
 
-    public ChatMemoryController(@Qualifier("plainChatClient") ChatClient chatClient) {
+    public ChatMemoryController(@Qualifier("ragChatClient") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 

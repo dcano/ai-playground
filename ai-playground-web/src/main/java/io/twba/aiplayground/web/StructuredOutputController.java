@@ -23,7 +23,7 @@ public class StructuredOutputController {
     private final ChatClient chatClient;
 
 
-    public StructuredOutputController(@Qualifier("ollamaChatClientPlain") ChatClient chatClient) {
+    public StructuredOutputController(@Qualifier("chatClientPlain") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 

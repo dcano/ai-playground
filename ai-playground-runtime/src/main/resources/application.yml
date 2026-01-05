@@ -49,8 +49,10 @@ logging:
     org.springframework.ai.model.tool: DEBUG
 
 playground:
+  model:
+    type: ${PLAYGROUND_MODEL_TYPE:ollama} #google-genai
   has-memory: false
   tavily-api-key: ${TAVILY_KEY:}
   tavily-result-limit: 5
-  manual-error-handling:
-    enabled: false
+  error-handling:
+    type: assisted #assisted | manual

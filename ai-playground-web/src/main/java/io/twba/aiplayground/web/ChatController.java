@@ -21,7 +21,7 @@ public class ChatController {
     @Value("classpath:/promptTemplates/systemPromptTemplate.st")
     private Resource systemPromptTemplate;
 
-    public ChatController(@Qualifier("ollamaChatClientSoftwareArchitect") ChatClient chatClient) {
+    public ChatController(@Qualifier("chatClientSoftwareArchitect") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 

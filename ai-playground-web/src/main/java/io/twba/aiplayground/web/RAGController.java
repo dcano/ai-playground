@@ -36,7 +36,7 @@ public class RAGController {
 
 
     @Autowired
-    public RAGController(@Qualifier("plainChatClient") ChatClient chatClient,
+    public RAGController(@Qualifier("ragChatClient") ChatClient chatClient,
                          VectorStore vectorStore,
                          @Qualifier("webSearchRAGChatClient") ChatClient webSearchRagChatClient) {
         this.chatClient = chatClient;

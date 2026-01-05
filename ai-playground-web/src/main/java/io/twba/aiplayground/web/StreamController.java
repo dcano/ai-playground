@@ -15,7 +15,7 @@ public class StreamController {
     private final ChatClient chatClient;
 
 
-    public StreamController(@Qualifier("ollamaChatClientSoftwareArchitect") ChatClient chatClient) {
+    public StreamController(@Qualifier("chatClientSoftwareArchitect") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 

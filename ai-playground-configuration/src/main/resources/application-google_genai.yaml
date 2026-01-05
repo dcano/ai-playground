@@ -1,0 +1,8 @@
+spring:
+  ai:
+    model:
+      chat: google-genai
+    google:
+      genai:
+        api-key: ${GOOGLE_GENAI_API_KEY}
+        project-id: ${GOOGLE_PROJECT_ID}
