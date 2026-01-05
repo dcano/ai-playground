@@ -9,14 +9,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>ai-playground-mcp-server-runtime</artifactId>
+    <artifactId>ai-playground-mcp-server-remote-runtime</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 
     <dependencies>
         <dependency>
@@ -29,11 +28,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

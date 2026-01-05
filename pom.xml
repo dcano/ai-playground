@@ -26,6 +26,7 @@
         <module>ai-playground-mcp-client</module>
         <module>ai-playground-mcp-server</module>
         <module>ai-playground-mcp-server-runtime</module>
+        <module>ai-playground-mcp-server-remote-runtime</module>
     </modules>
     <properties>
         <java.version>21</java.version>

@@ -27,14 +27,6 @@ services:
     volumes:
       - qdrant-db-volume:/qdrant/storage
     restart: always
-  inspector:
-    image: ghcr.io/modelcontextprotocol/inspector:latest
-    ports:
-      - 6274:6274
-      - 6277:6277
-    environment:
-      HOST: 0.0.0.0
-      MCP_AUTO_OPEN_ENABLED: false
 volumes:
   postgres-db-volume:
     driver: local
