@@ -21,12 +21,21 @@ public class ChatController {
     @Value("classpath:/promptTemplates/systemPromptTemplate.st")
     private Resource systemPromptTemplate;
 
-    public ChatController(@Qualifier("chatClientSoftwareArchitect") ChatClient chatClient) {
+    public ChatController(@Qualifier("chatClientPlain") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 
     @GetMapping("/chat")
     public String chat(@RequestParam("message") String message) {
+        return chatClient
+                .prompt()
+                .user(message)
+                .call()
+                .content();
+    }
+
+    @GetMapping("/chat-help-desk")
+    public String chatHelpDesk(@RequestParam("message") String message) {
         return chatClient
                 .prompt()
                 .system("""
