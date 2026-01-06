@@ -52,7 +52,7 @@ playground:
   model:
     type: ${PLAYGROUND_MODEL_TYPE:ollama} #google-genai
   has-memory: false
-  tavily-api-key: ${TAVILY_KEY:}
+  tavily-api-key: ${TAVILY_KEY:fake_key}
   tavily-result-limit: 5
   error-handling:
     type: assisted #assisted | manual
