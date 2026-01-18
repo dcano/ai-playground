@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@EnableAutoConfiguration(exclude = {OllamaChatAutoConfiguration.class})
 @Profile( "google_genai")
 public class GoogleGenAiModelConfiguration {
 }

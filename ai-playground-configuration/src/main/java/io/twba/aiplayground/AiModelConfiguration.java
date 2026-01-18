@@ -29,4 +29,12 @@ public class AiModelConfiguration {
         return ChatClient.builder(googleGenAiChatModel);
     }
 
+    @Bean("evaluatorChatClientBuilder")
+    public ChatClient.Builder evaluatorChatClientBuilderOllama(OllamaChatModel ollamaChatModel) {
+        return ChatClient.builder(ollamaChatModel)
+                .defaultOptions(ChatOptions.builder()
+                        .model("gpt-oss:latest")
+                        .build());
+    }
+
 }
