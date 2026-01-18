@@ -9,15 +9,15 @@ services:
     ports:
       - 5432:5432
     command: ['postgres', '-c', 'wal_level=logical']
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: 'test@test.com'
-      PGADMIN_DEFAULT_PASSWORD: 'test'
-    ports:
-      - 16543:80
-    volumes:
-      - ./pgadmin-servers.json:/pgadmin4/servers.json
+  #pgadmin:
+  #  image: dpage/pgadmin4
+  #  environment:
+  #    PGADMIN_DEFAULT_EMAIL: 'test@test.com'
+  #    PGADMIN_DEFAULT_PASSWORD: 'test'
+  #  ports:
+  #    - 16543:80
+  #  volumes:
+  #    - ./pgadmin-servers.json:/pgadmin4/servers.json
   qdrant:
     image: qdrant/qdrant:latest
     container_name: qdrant_local
@@ -27,6 +27,25 @@ services:
     volumes:
       - qdrant-db-volume:/qdrant/storage
     restart: always
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-local
+    volumes:
+      - "./prometheus-config.yml:/etc/prometheus/prometheus.yml"
+    networks:
+      - spring-ai-playground-network
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana
+    container_name: grafana-local
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - spring-ai-playground-network
+
 volumes:
   postgres-db-volume:
     driver: local
@@ -40,4 +59,13 @@ volumes:
       type: none
       o: bind
       device: ~/temp/data/qdrant
+  grafana-storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ~/temp/data/grafana
+networks:
+  spring-ai-playground-network:
+    driver: bridge
 
