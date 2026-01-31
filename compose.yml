@@ -45,7 +45,15 @@ services:
       - grafana-storage:/var/lib/grafana
     networks:
       - spring-ai-playground-network
-
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - spring-ai-playground-network
 volumes:
   postgres-db-volume:
     driver: local
