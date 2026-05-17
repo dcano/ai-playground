@@ -9,7 +9,8 @@ description: >
   Trigger on imports from org.springaicommunity.agent.* or mentions of
   SkillsTool, FileSystemTools, ShellTools, BraveWebSearchTool,
   SmartWebFetchTool, TodoWriteTool, AutoMemoryTools, AskUserQuestionTool,
-  ToolCallAdvisor, SubagentDefinition / SubagentResolver / SubagentExecutor.
+  AutoMemoryToolsAdvisor, TaskTool, SubagentDefinition / SubagentResolver /
+  SubagentExecutor / ClaudeSubagentType / A2ASubagent*.
   Do NOT use for unrelated Spring or generic Java tasks.
 ---
 
@@ -110,10 +111,16 @@ Two registration patterns exist:
        .build();
    ```
 
-Always add `ToolCallAdvisor` so tool invocations are routed correctly:
+Always add Spring AI core's `ToolCallAdvisor` so tool invocations are routed
+correctly (this advisor is **from Spring AI itself**, not from this library):
 
 ```java
-chatClientBuilder.defaultAdvisors(ToolCallAdvisor.builder().build());
+import org.springframework.ai.chat.client.advisor.ToolCallAdvisor;
+
+chatClientBuilder.defaultAdvisors(
+    ToolCallAdvisor.builder()
+        .disableInternalConversationHistory()   // typical for tool-heavy agents
+        .build());
 ```
 
 ## The 11 tools
@@ -169,19 +176,30 @@ SkillsTool.builder().addSkillsDirectory("/abs/path/skills").build();
 
 `build()` throws if zero skills are configured.
 
-## Sub-agents (TaskTools + A2A)
+## Sub-agents (TaskTool + A2A)
 
 The sub-agent system lets the primary agent delegate to specialised agents,
-either **local** (defined in Markdown) or **remote** (via the A2A protocol).
-See **[`SUBAGENTS.md`](SUBAGENTS.md)** for the SPI, configuration, and how
-the dispatcher (`TaskTool`) works.
+either **local** (Claude-style Markdown agents under
+`org.springaicommunity.agent.tools.task.claude`) or **remote** (via the A2A
+protocol, in the `spring-ai-agent-utils-a2a` module). The dispatcher
+`TaskTool` (with its companion `TaskOutputTool` for background polling) is
+what the model actually calls. The built-in subagents `general-purpose`,
+`explore`, `plan`, and `bash` are auto-registered by `TaskTool.builder()`.
+
+See **[`SUBAGENTS.md`](SUBAGENTS.md)** for the full SPI, the front-matter
+contract, and wiring patterns.
 
 ## Advisors
 
-- `ToolCallAdvisor` — required for tool-call routing. Always add it.
-- Project-specific logging advisors (see the `code-agent-demo` for the
-  `MyLoggingAdvisor` pattern with `showSystemMessage`/`showAvailableTools`
-  toggles).
+| Advisor | Origin | When to use |
+|---|---|---|
+| `ToolCallAdvisor` | **Spring AI core** (`org.springframework.ai.chat.client.advisor`) | Required on any tool-using `ChatClient`. Add `.disableInternalConversationHistory()` for tool-heavy agents. |
+| `AutoMemoryToolsAdvisor` | **This library** (`org.springaicommunity.agent.advisors`) | When pairing `AutoMemoryTools` with persistent long-term memory. Injects a memory system prompt and appends memory tool callbacks; consolidation runs on a configurable trigger. |
+| `MessageChatMemoryAdvisor` | Spring AI core | Standard short-term chat memory window. |
+
+The examples ship a project-local `MyLoggingAdvisor` (with
+`showSystemMessage` / `showAvailableTools` toggles) — copy that pattern
+when you need verbose debug output.
 
 ## Canonical agent skeleton
 
@@ -204,11 +222,15 @@ class AgentConfig {
             GlobTool.builder().workingDirectory("/repo").build(),
             SmartWebFetchTool.builder(fetchClient).build(),
             BraveWebSearchTool.builder(braveKey).resultCount(15).build())
-        .defaultAdvisors(ToolCallAdvisor.builder().build())
+        .defaultAdvisors(ToolCallAdvisor.builder()
+            .disableInternalConversationHistory().build())
         .build();
   }
 }
 ```
+
+> `ToolCallAdvisor` import:
+> `org.springframework.ai.chat.client.advisor.ToolCallAdvisor` (Spring AI core).
 
 ## When proposing code
 

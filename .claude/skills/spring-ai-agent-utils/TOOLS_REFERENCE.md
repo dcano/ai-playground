@@ -267,9 +267,33 @@ AutoMemoryTools.builder()
 
 ---
 
+## Library-provided advisor
+
+`org.springaicommunity.agent.advisors.AutoMemoryToolsAdvisor`
+**implements** `BaseChatMemoryAdvisor`. It's the **only** advisor inside
+this library — `ToolCallAdvisor` and `MessageChatMemoryAdvisor` come from
+Spring AI core.
+
+```java
+AutoMemoryToolsAdvisor.builder()
+    .memoriesDirectory(Paths.get("/memories"))
+    .memorySystemPromptResource(systemPromptResource)
+    .memoryConsolidationTrigger((req, lastConsolidatedAt) -> /* boolean */ true)
+    .order(Ordered.HIGHEST_PRECEDENCE + 200)        // default
+    .build();
+```
+
+`before()` injects the memory system prompt and appends the memory tool
+callbacks to the chat options. `after()` is a no-op — persistence happens
+during the model call. Pair with `AutoMemoryTools` registered as a tool.
+
+---
+
 ## Quick wiring template
 
 ```java
+import org.springframework.ai.chat.client.advisor.ToolCallAdvisor; // Spring AI core
+
 ChatClient agent = chatClientBuilder
     .defaultSystem(systemPrompt)
     .defaultToolCallbacks(
@@ -285,6 +309,7 @@ ChatClient agent = chatClientBuilder
         TodoWriteTool.builder().todoEventHandler(uiHandler).build(),
         AskUserQuestionTool.builder().questionHandler(qHandler).build(),
         AutoMemoryTools.builder().memoriesDir(memDir).build())
-    .defaultAdvisors(ToolCallAdvisor.builder().build())
+    .defaultAdvisors(ToolCallAdvisor.builder()
+        .disableInternalConversationHistory().build())
     .build();
 ```
