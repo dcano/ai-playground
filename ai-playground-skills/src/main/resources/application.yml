@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: ai-playground-skills
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: gpt-oss:latest
+        options:
+          temperature: 0.7
+
+server:
+  port: 9193
+
+logging:
+  level:
+    io.twba.skills: DEBUG
+    org.springaicommunity: INFO
